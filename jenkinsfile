@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = 'voting-app'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh './run_tests.sh'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh "docker build -t $IMAGE_NAME ."
+            }
+        }
+    }
+}
