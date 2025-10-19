@@ -20,7 +20,7 @@ pipeline {
 
         stage('Run Test') {
             steps {
-                sh './test_vote.sh'
+                sh './result/tests/tests.sh'
             }
         }
     }
