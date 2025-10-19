@@ -12,22 +12,22 @@ pipeline {
             }
         }
 
-        stage('Build with Docker Compose') {
+        stage('Build and Start Services') {
             steps {
-                sh 'docker compose build'
+                sh 'docker compose up -d --build'
             }
         }
 
-        stage('Start Services') {
+        stage('Run Test') {
             steps {
-                sh 'docker compose up -d'
+                sh './test_vote.sh'
             }
         }
     }
 
     post {
         always {
-            echo 'Cleaning up containers...'
+            echo 'Stopping services...'
             sh 'docker compose down'
         }
     }
